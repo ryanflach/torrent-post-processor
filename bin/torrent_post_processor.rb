@@ -55,7 +55,7 @@ class TorrentPostProcessor
       Find.find(download_path) do |file|
         basename = File.basename(file)
 
-        if basename =~ /\A#{torrent_name}/ && basename !~ /nfo\z/
+        if basename =~ /\A#{Regexp.quote(torrent_name)}/ && basename !~ /nfo\z/
           found << file
           break
         end
