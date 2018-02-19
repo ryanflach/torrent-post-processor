@@ -1,6 +1,5 @@
 require 'spec_helper'
 require_relative '../bin/torrent_post_processor'
-require 'pry'
 
 describe TorrentPostProcessor do
   let(:download_path) { File.join(__dir__, 'fixtures') }
