@@ -7,13 +7,14 @@ This simple script is designed to be used with [Deluge](http://deluge-torrent.or
 
 After cloning this repository, enable the Execute plugin in Deluge and set the path to `torrent_post_processor.rb` as the command to be run in the 'Torrent Complete' event.
 
-There are 3 options that can be set via environment variables:
-1. `TORRENT_FILE_SEPARATOR` - the character used to separate the name of the torrent
+There are 3 options within the code that you may wish to alter:
+1. `FILE_SEPARATOR` - the character used to separate the name of the torrent
     - Default is `'.'`
-2. `TORRENT_JOIN_CHARACTER` - the character used to re-join the relevant portions of the name
+2. `JOIN_CHARACTER` - the character used to re-join the relevant portions of the name
     - Default is `' '`
-3. `TORRENT_FINAL_LOCATION` - the absolute path of desired destination to move the file(s)
+3. `@final_destination` - the absolute path of desired destination to move the file(s)
     - Default is the download path supplied by Deluge
+
 ## Running Specs
 
 Navigate to the repository's directory and

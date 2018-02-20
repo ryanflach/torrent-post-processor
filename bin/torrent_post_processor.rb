@@ -5,11 +5,9 @@ require 'fileutils'
 
 class TorrentPostProcessor
   def initialize(torrent_name, download_path)
-    @filename_separator = ENV['TORRENT_FILE_SEPARATOR'] || '.'
     @torrent_name       = get_clean_name(torrent_name)
     @download_path      = download_path
-    @join_character     = ENV['TORRENT_JOIN_CHAR'] || ' '
-    @final_destination  = ENV['TORRENT_FINAL_LOCATION'] || download_path
+    @final_destination  = download_path
   end
 
   def process_completed_download
@@ -24,20 +22,20 @@ class TorrentPostProcessor
 
   attr_reader :torrent_name,
               :download_path,
-              :filename_separator,
-              :join_character,
               :final_destination
 
   # NOTE: TV shows will have season and episode data (e.g., S01E01), while movie
   #       torrents will typically have the 4-digit year after the title.
-  TV_MATCHER    = /\AS\d{2}E\d{2}\z/
-  MOVIE_MATCHER = /\A\d{4}\z/
+  TV_MATCHER     = /\AS\d{2}E\d{2}\z/
+  MOVIE_MATCHER  = /\A\d{4}\z/
+  FILE_SEPARATOR = '.'
+  JOIN_CHARACTER = ' '
 
   def get_clean_name(name)
-    parts = name.split(filename_separator)
+    parts = name.split(FILE_SEPARATOR)
 
     if parts.count > 1 && parts.last =~ /\A[a-z]{3,4}/
-      take_all_but_last(parts).join(filename_separator)
+      take_all_but_last(parts).join(FILE_SEPARATOR)
     else
       name
     end
@@ -80,7 +78,7 @@ class TorrentPostProcessor
   end
 
   def parse_filename(filename)
-    parts          = File.basename(filename).split(filename_separator)
+    parts          = File.basename(filename).split(FILE_SEPARATOR)
     file_type      = parts.pop
     formatted_name = format_name(parts)
 
@@ -99,7 +97,7 @@ class TorrentPostProcessor
           name << segment
         end
       end
-    end.join(join_character)
+    end.join(JOIN_CHARACTER)
   end
 
   def final_tv_element?(segment)

@@ -23,14 +23,6 @@ describe TorrentPostProcessor do
   end
 
   describe '#process_completed_download' do
-    before(:each) do
-      allow(ENV).to receive(:[]).and_call_original
-      allow(ENV)
-        .to receive(:[])
-        .with('TORRENT_FINAL_LOCATION')
-        .and_return(download_path)
-    end
-
     context 'file in subdirectory' do
       before(:each) do
         create_movie_fixtures(File.join(download_path, 'Test Movie'))
